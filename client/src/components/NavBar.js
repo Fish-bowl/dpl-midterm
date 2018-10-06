@@ -12,9 +12,9 @@ class NavBar extends Component {
     return (
       <div>
         <Menu pointing>
-          <Link to='/'>
-            <Menu.Item name='home' active={this.activeItem('/')} />
-          </Link>
+            <Link to='/beer'>
+              <Menu.Item name='Beer' active={this.activeItem('/beer')} />
+            </Link>
           <Menu.Menu position='right'>
             <Link to='/'>
               <Menu.Item name='DPS React Assessment' />
