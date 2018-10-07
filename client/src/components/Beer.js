@@ -1,40 +1,62 @@
 import React from 'react'
-import { List, Image} from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Card, Container, Header, } from 'semantic-ui-react'
+import axios from 'axios'
 
-class Beer extends React.Component {
-  
+const styles = {
+
+  constant: {
+    backgroundColor: 'black'
+  },
+
+  headers: {
+    color: 'white'
+  },
+} 
+
+
+class Beers extends React.Component {
   state = { beers: [] }
+  
 
-  getBeerss = () => {
+  componentDidMount() {
     axios.get('/api/all_beers')
-      .then(res => this.setState({ beers: res.data }))
-    debugger
+      .then(res => {
+        this.setState({ beers: res.data.entries })
+      })
   }
 
   render() {
-    return (
-   
-      <List divided relaxed>
-        (beers.map(beer =>
-          <List.Item key={beer.name}>
-            {/* <Image avatar src={beer.user.profile_image_url} alt="user avatar" /> */}
-            <List.Content>
-              <List.Header>{beer.name}</List.Header>
-              <List.Description>
-                <a
-                  href={beer.name.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                </a>
-              </List.Description>
-            </List.Content>
-          </List.Item>
-        )
-        )
-      </List>
-      )
-    }
-  }
 
-export default Beer
+    paginate = () => {
+      
+    }
+
+    return (
+      <Container >
+        <Header textAlign='center' as='h2' >All The Beers!</Header>
+        <Card.Group itemsperrow='4' textAlign='center' >
+          { this.state.beers.map((beer, b) =>
+            <Card key={b} color='red' >
+              <Card.Content>
+                {/* beer image */}
+                <Card.Header>
+                  {beer.name}
+                </Card.Header>
+                <Card.Description>
+                  {beer.description}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+            )}
+        </Card.Group>
+      </Container>
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return { beers:state.beers}
+}
+
+export default connect(mapStateToProps)(Beers)
