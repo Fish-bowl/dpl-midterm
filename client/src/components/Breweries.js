@@ -7,12 +7,23 @@ import {
   Container,
 } from 'semantic-ui-react'
 
+const styles = {
+
+  constant: {
+    backgroundColor: 'black'
+  },
+
+  headers: {
+    color: 'white'
+  },
+} 
+
 class Breweries extends React.Component {
   state = { breweries: [] }
 
 
   componentDidMount() {
-    axios.get('/api/all_breweries')
+    axios.get('/api/all_breweries?page=5&per_page=9')
       .then(res => {
         this.setState({ breweries: res.data.entries })
       })
@@ -21,10 +32,10 @@ class Breweries extends React.Component {
   render() {
     return (
       <Container >
-        <Header textAlign='center' as='h2'>All The Breweries!</Header>
-        <Card.Group itemsperrow='4' textAlign='center' >
+        <Header textAlign='center' as='h2' style={styles.headers}>All The Breweries!</Header>
+        <Card.Group textAlign='center' >
           {this.state.breweries.map((brewerie, b) =>
-            <Card key={b} color='red' >
+            <Card key={b} color='red' fluid >
               <Card.Content>
                 {/* beer image */}
                 <Card.Header>

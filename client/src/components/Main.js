@@ -20,38 +20,50 @@ const styles = {
 
 class Main extends React.Component {
 
-  state = {  }
+  // state = { beers: [], breweries: [], locations: [] }
 
 
-  componentDidMount() {
-    axios.get('/api/all_breweries')
-      .then(res => {
-        this.setState({ breweries: res.data.entries })
-      })
-    axios.get('/api/all_beers')
-      .then(res => {
-        this.setState({ beers: res.data.entries })
-      })
-    axios.get('/api/all_locations')
-      .then(res => {
-        this.setState({ locations: res.data.entries })
-      })
-  }
+  // componentDidMount() {
+  //   axios.get('/api/all_breweries?page=5&per_page=9')
+  //     .then(res => {
+  //       this.setState({ breweries: res.data.entries })
+  //     })
+  //   axios.get('/api/all_beers?page=5&per_page=9')
+  //     .then(res => {
+  //       this.setState({ beers: res.data.entries })
+  //     })
+  //   axios.get('/api/all_locations?page=5&per_page=9')
+  //     .then(res => {
+  //       this.setState({ locations: res.data.entries })
+  //     })
+  // }
 
  
   render() {
     return (
-      <div>
-        <Segment.Group>
-          <Segment>
-            <Header as='h1' textAlign='center' >Welcome to Happy Hour</Header>
-            
-            <Beer/>
-          </Segment>
-        </Segment.Group>
-      </div>
+      <Grid columns={3}>
+        <Grid.Row>
+          <Grid.Column>
+            <Beer />
+          </Grid.Column>
+          <Grid.Column>
+            <Breweries />
+          </Grid.Column>
+          <Grid.Column>
+            <Locations />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     )
   }
 }
+
+{/* <Segment.Group>
+  <Segment>
+    <Header as='h1' textAlign='center' >Welcome to Happy Hour</Header>
+
+    <Beer beer={this.state.beer} />
+  </Segment>
+</Segment.Group> */}
 
 export default Main

@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import axios from 'axios'
 import {
   Card,
@@ -11,12 +10,12 @@ import {
 
 class RandomBeer extends React.Component{
 
-  state = { randomBeer: [] }
+  state = { randomBeers: [], activePage: [] }
 
   componentDidMount() {
-    axios.get('/api/all_beers')
+    axios.get('/api/beer/random_beer')
         .then(res => {
-      this.setState({ randomBeer: res.data.entries })
+      this.setState({ randomBeers: res.data.entries })
         })
   }
 
@@ -25,7 +24,8 @@ class RandomBeer extends React.Component{
       <Container >
         <Header textAlign='center' as='h2' style={{color: 'white'}} >I dont Work yet</Header>
         <Card.Group itemsperrow='4' textAlign='center' >
-            <Card color='red' >
+          { this.state.randomBeers.map((randomBeers, r) => 
+            <Card key={r} color='red' >
               <Card.Content>
                 {/* beer image */}
                 <Card.Header>
@@ -36,14 +36,11 @@ class RandomBeer extends React.Component{
                 </Card.Description>
               </Card.Content>
             </Card>
+          )}
         </Card.Group>
       </Container>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {randomBeer:state.beer}
-}
-
-export default connect(mapStateToProps)(RandomBeer)
+export default RandomBeer
